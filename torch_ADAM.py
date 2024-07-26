@@ -6,19 +6,13 @@ from torch.optim.optimizer import (Optimizer, _use_grad_for_differentiable, _def
                         _differentiable_doc, _foreach_doc, _maximize_doc, _fused_doc)
 from typing import List, Optional
 
-__all__ = ['adam', 'ADAM']
+__all__ = ['adam']
 
 
 class Adam(Optimizer):
-    def __init__(self, params, lr=1e-3, beta_one=0.9, beta_two=0.999, epsilon=1e-9, *, maximize: bool = False):
-        """
-        :param params: specifies which tensors should be optimized
-        :param lr: step size
-        :param beta_one: Exponential decay rate
-        :param beta_two: Exponential decay rate
-        :param epsilon: threshold to consider number as 0
-        :param maximize: bool indicating whether the optimizer should maximize or minimize the objective
-        """
+    def __init__(self, params, lr=1e-3, beta_one=0.9, beta_two=0.999, epsilon=1e-9, *, maximize: bool = False,
+                 differentiable: bool = False,):
+
         if lr < 0.0:
             raise ValueError(f"Invalid learning rate: {lr}")
         if beta_one < 0.0:
@@ -30,16 +24,20 @@ class Adam(Optimizer):
 
         self.t = 0
 
-        defaults = dict(lr=lr, beta_one=beta_one, beta_two=beta_two, epsilon=epsilon, maximize=maximize)
+        defaults = dict(lr=lr, beta_one=beta_one, beta_two=beta_two, epsilon=epsilon, maximize=maximize,
+                        differentiable=differentiable)
 
         super().__init__(params, defaults)
 
     def __setstate__(self, state):
+
         super().__setstate__(state)
         for group in self.param_groups:
             group.setdefault('maximize', False)
+            group.setdefault("differentiable", False)
 
     def _init_group(self, group, params_with_grad, d_p_list, m_0_buffer_list, v_0_buffer_list):
+
         has_sparse_grad = False
 
         for p in group['params']:
@@ -58,6 +56,12 @@ class Adam(Optimizer):
 
     @_use_grad_for_differentiable
     def step(self, closure=None):
+        """Performs a single optimization step.
+
+        Args:
+            closure (Callable, optional): A closure that reevaluates the model
+                and returns the loss.
+        """
         loss = None
         if closure is not None:
             with torch.enable_grad():
@@ -124,6 +128,56 @@ def _single_tensor_adam(params: List[Tensor], d_p_list: List[Tensor], m_0_buffer
         param.add_(torch.div(m_0_buff, torch.add(torch.sqrt(v_0_buff),epsilon)), alpha=-lr_t)
 
 
+Adam.__doc__ = (r"""Implements Adam optimization method based on 'ADAM: A METHOD FOR STOCHASTIC OPTIMIZATION'.
+                Author of code: Jordi Granja Bayot.
+                """ + rf"""
+                Args:
+                    params (iterable): iterable of parameters to optimize or dicts defining
+                        parameter groups
+                    lr (float, optional): learning rate (default: 1e-3)
+                    beta_one (float, optional): beta_one_factor (default: 0.9)
+                    beta_two (float, optional): beta_two_factor (default: 0.999)
+                    epsilon (float, optional): epsilon_factor (default: 1e-9)
+                    {_maximize_doc}
+                    {_differentiable_doc}
+                """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+)
 
 
 
