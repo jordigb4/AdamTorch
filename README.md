@@ -1,4 +1,4 @@
-# Simplex
+# ADAM
 
 <a name="readme-top"></a>
 
