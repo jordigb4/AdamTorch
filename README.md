@@ -2,16 +2,6 @@
 
 <a name="readme-top"></a>
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/albertojc6/Simplex">
-    <img src="images/logo.png" alt="Logo" width="200" height="130">
-  </a>
-
-<h3 align="center">Primal Simplex Algorithm</h3>
-</div>
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -36,9 +26,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This report is the justification for the solution proposed by the problem raised. This is, programming the algorithm of the primal simplicity, in order to solve a set of linear optimization problems.
+This project is a deep dive into understanding and implementing the ADAM optimizer, a popular optimization algorithm used in training deep learning models. 
 
-Among the objectives of the practice, the understanding of the operation of the simplex method stands out, as well as the theoretical concepts associated with linear programming. In our case, the chosen programming language has been Python. Despite not being a language intended for mathematics, its module Numpy allows us to perform numerical calculations efficiently.
+The work involved reading and comprehensively understanding the seminal paper "ADAM: A Method for Stochastic Optimization" by Diederik P. Kingma and Jimmy Ba, learning how to create PyTorch-compatible optimizers, and subsequently implementing the ADAM optimizer for use in PyTorch.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -49,11 +39,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-
-* Python
-  ```sh
-  pip install numpy
-  ```
+Install torch. 
 
 ### Installation
 
@@ -68,12 +54,7 @@ To get a local copy up and running follow these simple example steps.
 ## Usage
 
 ```python
-from Simplex import Simplex
-from Parser import parse
-
-c, A, b = parse('Data/ProblemData1.txt')
-sim = Simplex(c, A, b, debug_file = 'Debug_ProblemData1')
-i_B, x_B = sim.solve()
+optimizer = torch_ADAM.Adam(model.parameters(),lr=learning_rate)
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -81,12 +62,9 @@ i_B, x_B = sim.solve()
 ## Repository Structures
 
     .
-    ├── Datos                 # Problem data examples
-    ├── Debug_Datos           # Problem data examples solved
-    ├── images                # Project Logo
-    ├── Parser.py             # File with function to read linear problem data into numpy arrays
-    ├── Simplex.py            # MAIN file, with Simplex solver class
-    ├── example.py            # Use-case example
+    ├── torch_ADAM.py         # Optimizer class and functions
+    ├── pytorch_functions.py  # Optimizing loop functions
+    ├── example.ipynb         # Fashion MNIST use case example
     └── README.md
 
 <p align="right">(<a href="#repo-structures">back to top</a>)</p>
@@ -111,8 +89,7 @@ Don't forget to give the project a star! Thanks again!
 ## Contact
 
 Jordi Granja Bayot - jordi.granja.i@estudiantat.upc.edu - @jordigb4  
-Alberto Jerez Cubero - alberto.jerez@estudiantat.upc.edu - @albertojc6
 
-Project Link: [https://github.com/jordigb4/Simplex](https://github.com/jordigb4/Simplex)
+Project Link: [https://github.com/jordigb4/AdamTorch/](https://github.com/jordigb4/AdamTorch/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
