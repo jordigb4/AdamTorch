@@ -4,7 +4,7 @@ Replication of the seminal paper "ADAM: A Method for Stochastic Optimization" by
 
 ## Contact
 
-Jordi Granja Bayot - jordi.granja.i@estudiantat.upc.edu - @jordigb4  
+Jordi Granja Bayot - jordi.granja.bayot@gmail.com - @jordigb4  
 
 Project Link: [https://github.com/jordigb4/AdamTorch/](https://github.com/jordigb4/AdamTorch/)
 
